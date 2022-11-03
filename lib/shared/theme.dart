@@ -8,6 +8,11 @@ Color primary = const Color(0xffF76C6A);
 Color secondary = const Color(0xffF79E89);
 Color accent = const Color(0xffF0F0F0);
 
+TextStyle appBarTitleTextStyle = GoogleFonts.bebasNeue(
+  color: secondary,
+  fontSize: 26,
+);
+
 TextStyle headlineTextStyle = GoogleFonts.bebasNeue(
   color: primary,
   fontSize: 36,
