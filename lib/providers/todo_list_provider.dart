@@ -10,4 +10,9 @@ class TodoListProvider extends ChangeNotifier {
     _todoList.add(todo);
     notifyListeners();
   }
+
+  void updateTodo(TodoModel todo) {
+    _todoList[_todoList.indexWhere((element) => element.id == todo.id)] = todo;
+    notifyListeners();
+  }
 }

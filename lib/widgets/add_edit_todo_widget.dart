@@ -20,20 +20,23 @@ class AddEditTodoWidget extends StatefulWidget {
 }
 
 class _AddEditTodoWidgetState extends State<AddEditTodoWidget> {
+
   final TextEditingController titleController = TextEditingController();
-
   final TextEditingController descriptionController = TextEditingController();
-
   final TextEditingController deadlineController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if (widget.todo != null) {
       titleController.text = widget.todo!.title;
       descriptionController.text = widget.todo!.description;
       deadlineController.text = widget.todo!.deadline;
     }
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     Widget formSection() {
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 24),
@@ -63,29 +66,27 @@ class _AddEditTodoWidgetState extends State<AddEditTodoWidget> {
                 // Show date picker
                 DateTime? date = DateTime(1900);
                 date = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1900),
-                  lastDate: DateTime(2100),
-                  builder: (context, child) {
-                    return Theme(
-                      data: Theme.of(context).copyWith(
-                        colorScheme: ColorScheme.light(
-                          primary: primary, // header background color
-                          onPrimary: accent, // header text color
-                          onSurface: black, // body text color
-                        ),
-                        textButtonTheme: TextButtonThemeData(
-                          style: TextButton.styleFrom(
-                            primary: Colors.red, // button text color
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2100),
+                    builder: (context, child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: primary, // header background color
+                            onPrimary: accent, // header text color
+                            onSurface: black, // body text color
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              primary: Colors.red, // button text color
+                            ),
                           ),
                         ),
-                      ),
-                      child: child!,
-                    );
-                  }
-
-                );
+                        child: child!,
+                      );
+                    });
 
                 deadlineController.text =
                     DateFormat('dd MMMM yyyy').format(date!);
@@ -129,11 +130,18 @@ class _AddEditTodoWidgetState extends State<AddEditTodoWidget> {
                   showDialog(
                     context: context,
                     builder: (context) => const InfoWidget(
-                        title: "Error!",
-                        content: "Please enter all form"),
+                        title: "Error!", content: "Please enter all form"),
                   );
                 } else {
                   if (widget.todo != null) {
+                    context.read<TodoListProvider>().updateTodo(
+                          TodoModel(
+                            id: widget.todo!.id,
+                            title: titleController.text,
+                            description: descriptionController.text,
+                            deadline: deadlineController.text,
+                          ),
+                        );
                   } else {
                     // add new todo
                     const uuid = Uuid();

@@ -92,7 +92,9 @@ class HomeScreen extends StatelessWidget {
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
-            builder: (BuildContext context) => const AddEditTodoWidget(isAddButton: true,),
+            builder: (BuildContext context) => const AddEditTodoWidget(
+              isAddButton: true,
+            ),
           );
         },
         backgroundColor: primary,
@@ -118,8 +120,7 @@ class CustomListTile extends StatelessWidget {
             isScrollControlled: true,
             backgroundColor: secondary,
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
             ),
             builder: (context) => AddEditTodoWidget(
               todo: todo,
