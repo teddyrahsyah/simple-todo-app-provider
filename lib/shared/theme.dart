@@ -15,7 +15,7 @@ TextStyle appBarTitleTextStyle = GoogleFonts.bebasNeue(
 
 TextStyle headlineTextStyle = GoogleFonts.bebasNeue(
   color: primary,
-  fontSize: 36,
+  fontSize: 35,
 );
 
 TextStyle titleTextTyle = GoogleFonts.montserrat(
@@ -36,4 +36,10 @@ TextStyle contentSmallTextStyle = GoogleFonts.montserrat(
 TextStyle labelTextStyle = GoogleFonts.montserrat(
   color: white,
   fontSize: 16,
+);
+
+TextStyle buttonTextStyle = GoogleFonts.montserrat(
+  color: secondary,
+  fontSize: 14,
+  fontWeight: FontWeight.w500
 );
