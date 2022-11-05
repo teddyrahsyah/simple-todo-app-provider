@@ -59,30 +59,32 @@ class HomeScreen extends StatelessWidget {
                     )
                   ],
                 )
-              : Column(
-                  children: [
-                    Center(
-                      child: Text(
-                        "No Todo Exist!",
-                        style: headlineTextStyle,
+              : SingleChildScrollView(
+                child: Column(
+                    children: [
+                      Center(
+                        child: Text(
+                          "No Todo Exist!",
+                          style: headlineTextStyle,
+                        ),
                       ),
-                    ),
-                    Center(
-                      child: Text(
-                        "Create your To-Do now",
-                        style: contentTextStyle.copyWith(color: primary),
+                      Center(
+                        child: Text(
+                          "Create your To-Do now",
+                          style: contentTextStyle.copyWith(color: primary),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height -
-                          MediaQuery.of(context).size.width,
-                      child: Center(
-                        child: Image.asset("assets/no_todo_img.png"),
-                      ),
-                    )
-                  ],
-                )),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height -
+                            MediaQuery.of(context).size.width,
+                        child: Center(
+                          child: Image.asset("assets/no_todo_img.png"),
+                        ),
+                      )
+                    ],
+                  ),
+              )),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
@@ -111,8 +113,12 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        //set border radius more than 50% of height and width to make circle
+      ),
+      color: primary,
       child: InkWell(
         onTap: () {
           showModalBottomSheet(
@@ -128,52 +134,45 @@ class CustomListTile extends StatelessWidget {
             ),
           );
         },
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-            //set border radius more than 50% of height and width to make circle
+        child: Container(
+          height: 120,
+          padding: const EdgeInsets.only(
+            left: 16,
+            top: 10,
+            right: 10,
+            bottom: 10,
           ),
-          color: primary,
-          child: Container(
-            height: 120,
-            padding: const EdgeInsets.only(
-              left: 16,
-              top: 10,
-              right: 10,
-              bottom: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        todo.title,
-                        style: titleTextTyle,
-                      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      todo.title,
+                      style: titleTextTyle,
                     ),
-                    Icon(
-                      Icons.access_time,
-                      color: white,
-                      size: 18,
-                    )
-                  ],
-                ),
-                Expanded(
-                  child: Text(
-                    todo.description,
-                    style: contentTextStyle.copyWith(height: 1.7),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
+                  Icon(
+                    Icons.access_time,
+                    color: white,
+                    size: 18,
+                  )
+                ],
+              ),
+              Expanded(
+                child: Text(
+                  todo.description,
+                  style: contentTextStyle.copyWith(height: 1.7),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  "Deadline at ${todo.deadline}",
-                  style: contentSmallTextStyle,
-                ),
-              ],
-            ),
+              ),
+              Text(
+                "Deadline at ${todo.deadline}",
+                style: contentSmallTextStyle,
+              ),
+            ],
           ),
         ),
       ),

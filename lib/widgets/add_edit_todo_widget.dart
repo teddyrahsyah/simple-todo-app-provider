@@ -20,7 +20,6 @@ class AddEditTodoWidget extends StatefulWidget {
 }
 
 class _AddEditTodoWidgetState extends State<AddEditTodoWidget> {
-
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController deadlineController = TextEditingController();
@@ -50,7 +49,7 @@ class _AddEditTodoWidgetState extends State<AddEditTodoWidget> {
             CustomTextField(
               labelText: "Description",
               controller: descriptionController,
-              maxLines: 20,
+              maxLines: widget.todo != null ? 16 : 20,
               margin: const EdgeInsets.only(bottom: 16),
             ),
             CustomTextField(
@@ -120,7 +119,7 @@ class _AddEditTodoWidgetState extends State<AddEditTodoWidget> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12))),
               child: Text(
-                widget.isAddButton ? "ADD TODO" : "EDIT TODO",
+                widget.todo != null ? "EDIT TODO" : "ADD TODO",
                 style: buttonTextStyle,
               ),
               onPressed: () {
@@ -160,6 +159,28 @@ class _AddEditTodoWidgetState extends State<AddEditTodoWidget> {
               },
             ),
           ),
+          if (widget.todo != null) ...[
+            Container(
+              width: double.infinity,
+              height: 48,
+              margin: const EdgeInsets.only(top: 16),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: primary,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(color: accent, width: 2),
+                        borderRadius: BorderRadius.circular(12))),
+                child: Text(
+                  "REMOVE TODO",
+                  style: buttonTextStyle.copyWith(color: white),
+                ),
+                onPressed: () {
+                  context.read<TodoListProvider>().removeTodo(widget.todo!);
+                  Navigator.pop(context);
+                },
+              ),
+            )
+          ]
         ],
       ),
     );

@@ -15,4 +15,9 @@ class TodoListProvider extends ChangeNotifier {
     _todoList[_todoList.indexWhere((element) => element.id == todo.id)] = todo;
     notifyListeners();
   }
+  
+  void removeTodo(TodoModel todo) {
+    _todoList = _todoList.where((element) => element.id != todo.id).toList();
+    notifyListeners();
+  }
 }
