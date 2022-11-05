@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.katanaware.simple_todo_app_with_provider">
    <application
-        android:label="simple_todo_app_with_provider"
+        android:label="To Do List"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
